@@ -85,8 +85,14 @@
     },
     "linux": {
       "icon": "public/logo.png",
+      "publish": null,
       "target": [
-        "AppImage"
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
     }
   }
