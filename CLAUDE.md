@@ -53,3 +53,17 @@ App.vue
 **Utilities (`src/utils/`):** pure functions extracted for testability. Jest tests cover `goldenScore.ts` and `matchTimerLogic.ts`. Vue components themselves are not tested.
 
 **localStorage:** `BoardSettings.vue` persists only the timer strategy (`'down'`/`'up'`) under the key `judo-score:countdown`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs are tracked in this repository's GitHub Issues. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Uses the five default canonical triage labels. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Uses a single-context layout. See `docs/agents/domain.md`.
