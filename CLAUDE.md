@@ -20,6 +20,9 @@ To run a single test file:
 yarn test src/utils/goldenScore.test.ts
 ```
 
+Run `yarn test` and `yarn type-check` after changing scoring or timer logic.
+Use `yarn lint` deliberately: its configured `--fix` changes files.
+
 ## Architecture
 
 **Dual-target app:** the same Vue 3 codebase runs as a browser web app or as an Electron desktop app. The toggle is the `ELECTRON=true` env var, which `vite.config.ts` reads to conditionally load the `vite-plugin-electron` and `vite-plugin-electron-renderer` plugins. The Electron entry is `electron/main.ts`; the renderer is the standard Vue app.
@@ -50,9 +53,16 @@ App.vue
 - `TimeBanner.vue` (`keyup`): Tab/Control = toggle match timer, Shift = toggle pin timer, g/G = golden score, r/R = reset all, t/T = reset timer. Bindings are suppressed when settings panel is open.
 - `JudoPlayer.vue` (`keydown`): a/z = P1 ippon ±1, s/x = P1 waza-ari ±1, d/c = P1 yuko ±1; j/m = P2 ippon ±1, k/, = P2 waza-ari ±1, l/. = P2 yuko ±1.
 
-**Utilities (`src/utils/`):** pure functions extracted for testability. Jest tests cover `goldenScore.ts` and `matchTimerLogic.ts`. Vue components themselves are not tested.
+**Utilities (`src/utils/`):** pure functions extracted for testability, with adjacent Jest test files named `*.test.ts`. Jest tests cover `goldenScore.ts` and `matchTimerLogic.ts`. Vue components themselves are not tested.
 
 **localStorage:** `BoardSettings.vue` persists only the timer strategy (`'down'`/`'up'`) under the key `judo-score:countdown`.
+
+## Guardrails
+
+- Preserve the established Options API, emit, and `$refs` patterns in existing components unless the task explicitly calls for a broader refactor.
+- Do not change keyboard shortcuts or scoring semantics without updating the relevant help text and tests.
+- Keep changes compatible with both browser and Electron targets unless the task explicitly limits one target.
+- Avoid editing generated deployment assets in `docs/` unless the task is to refresh the published web build.
 
 ## Agent skills
 
